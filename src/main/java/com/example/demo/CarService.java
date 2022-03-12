@@ -1,6 +1,8 @@
 package com.example.demo;
 
+import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
+import org.springframework.web.server.ResponseStatusException;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -29,6 +31,11 @@ public class CarService {
     }
 
     public Car getCarById(Integer id) {
+        Car car = carMap.get(id);
+        if(car == null) {
+            //throw new ResponseStatusException(HttpStatus.NOT_FOUND, "car not found");
+            throw new CarNotFoundException("car not found");
+        }
         return carMap.get(id);
     }
 
